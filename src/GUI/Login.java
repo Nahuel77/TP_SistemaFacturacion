@@ -17,6 +17,4 @@ public class Login extends JDialog {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
-
 }
