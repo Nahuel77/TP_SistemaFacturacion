@@ -10,7 +10,7 @@
       <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modelo/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modelo/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Persistencia/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistencia/UsuarioDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +42,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "298",
     "git-widget-placeholder": "main",
     "onboarding.tips.debug.path": "C:/Users/Nahuel/IdeaProjects/TP_SistemaFacturacion/src/Main.java",
     "project.structure.last.edited": "Modules",

@@ -1,19 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.Facturador">
-  <grid id="27dc6" binding="Facturador" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="40" left="40" bottom="40" right="40"/>
+  <grid id="27dc6" binding="Facturador" layout-manager="GridLayoutManager" row-count="2" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="661" height="242"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="6d2a2" class="javax.swing.JLabel">
+      <component id="632b2" class="javax.swing.JButton" binding="Empleados_btn">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Bienvenido"/>
+          <text value="Empleados"/>
+        </properties>
+      </component>
+      <component id="f3606" class="javax.swing.JButton" binding="Inicio_btn">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Inicio"/>
+        </properties>
+      </component>
+      <component id="1f1b6" class="javax.swing.JButton" binding="Proveedores_btn">
+        <constraints>
+          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Proveedores"/>
+        </properties>
+      </component>
+      <component id="11848" class="javax.swing.JButton" binding="Stock_btn">
+        <constraints>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Stock"/>
+        </properties>
+      </component>
+      <component id="1ad07" class="javax.swing.JButton" binding="Facturacion_btn">
+        <constraints>
+          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Facturación"/>
+        </properties>
+      </component>
+      <component id="96eb7" class="javax.swing.JLabel" binding="Bienvenida">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="33" height="31"/>
+          </grid>
+        </constraints>
+        <properties>
+          <alignmentY value="0.0"/>
+          <autoscrolls value="false"/>
+          <text value="Label"/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="0"/>
+        </properties>
+      </component>
+      <component id="392d3" class="javax.swing.JButton" binding="Clientes_btn">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Clientes"/>
         </properties>
       </component>
     </children>

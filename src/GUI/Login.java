@@ -25,9 +25,10 @@ public class Login extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 String username = User.getText();
                 String password = Pass.getText();
-                if(new UsuarioDAO().validarUsuario(username, password)){
-                    //agregar logica que asigne id
-                    Usuario user = new Usuario(username, 1);
+
+                Usuario user = new UsuarioDAO().validarUsuario(username, password);
+
+                if(user != null){
                     dispose();
                     Facturador facturador = new Facturador(user);
                     System.out.println("Login Exitoso");
