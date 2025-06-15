@@ -20,17 +20,6 @@
           <toolTipText value=""/>
         </properties>
       </component>
-      <component id="1f51a" class="javax.swing.JTextField" binding="Pass">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="40"/>
-          </grid>
-        </constraints>
-        <properties>
-          <font size="14"/>
-          <text value=""/>
-        </properties>
-      </component>
       <component id="2cce0" class="javax.swing.JButton" binding="NewUser_btn">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
@@ -69,6 +58,16 @@
         </constraints>
         <properties>
           <text value="Contraseña"/>
+        </properties>
+      </component>
+      <component id="164a1" class="javax.swing.JPasswordField" binding="Pass">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="40"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
         </properties>
       </component>
     </children>

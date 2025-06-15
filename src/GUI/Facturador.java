@@ -16,7 +16,7 @@ public class Facturador extends JFrame {
     private String userName;
 
     public Facturador(Usuario user) {
-            this.userName = user.getUserName();
+            this.userName = user.getEmpleado();
             setContentPane(Facturador);
             setTitle("Facturador");
             setLocationRelativeTo(null);

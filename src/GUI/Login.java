@@ -37,5 +37,11 @@ public class Login extends JDialog {
                 }
             }
         });
+        NewUser_btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreateUser newUser = new CreateUser(Login.this);
+            }
+        });
     }
 }
