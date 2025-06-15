@@ -1,6 +1,7 @@
 package GUI;
 
 import Persistencia.UsuarioDAO;
+import Modelo.Usuario;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,10 @@ public class Login extends JDialog {
                 String username = User.getText();
                 String password = Pass.getText();
                 if(new UsuarioDAO().validarUsuario(username, password)){
+                    //agregar logica que asigne id
+                    Usuario user = new Usuario(username, 1);
+                    dispose();
+                    Facturador facturador = new Facturador(user);
                     System.out.println("Login Exitoso");
                 }else{
                     System.out.println("Login Fallido");

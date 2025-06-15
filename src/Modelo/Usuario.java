@@ -2,11 +2,11 @@ package Modelo;
 
 public class Usuario {
     private String userName;
-    private String password;
+    private int id;
 
-    public Usuario(String userName, String password){
+    public Usuario(String userName, int id){
         this.userName = userName;
-        this.password = password;
+        this.id = id;
     }
 
     public String getUserName(){
@@ -15,13 +15,5 @@ public class Usuario {
 
     public void setUserName(String userName){
         this.userName = userName;
-    }
-
-    public String getPassword(){
-        return password;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
     }
 }
