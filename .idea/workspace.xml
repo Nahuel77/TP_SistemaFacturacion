@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="06981797-9068-4fce-84d7-6e2f9d964d9d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/CreateUser.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/CreateUser.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/CreateUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/CreateUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Persistencia/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistencia/UsuarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +39,8 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "298",
+    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "124",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "251",
     "git-widget-placeholder": "main",
     "onboarding.tips.debug.path": "C:/Users/Nahuel/IdeaProjects/TP_SistemaFacturacion/src/Main.java",
     "project.structure.last.edited": "Modules",
