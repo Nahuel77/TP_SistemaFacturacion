@@ -1,15 +1,11 @@
 package GUI;
 
-import Modelo.Empleado;
 import Modelo.Usuario;
-import Persistencia.EmpleadoDAO;
-
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.CardLayout;
 import javax.swing.table.DefaultTableModel;
-import java.util.List;
 
 public class Facturador extends JFrame {
     private JPanel Facturador;
@@ -27,10 +23,9 @@ public class Facturador extends JFrame {
     private JPanel Stock_card;
     private JPanel Facturacion_card;
     private JPanel Clientes_card;
-    private JLabel Empleados_lb;
-    private JTable Empleados_tabla;
     private String userName;
     private static DefaultTableModel DTM;
+    private PanelEmpleados panelEmpleados;
 
     public Facturador(Usuario user) {
 
@@ -54,26 +49,14 @@ public class Facturador extends JFrame {
             }
         });
 
+        panelEmpleados = new PanelEmpleados();
+        Empleados_card.setLayout(new BorderLayout());
+        Empleados_card.add(panelEmpleados, BorderLayout.CENTER);
         Empleados_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(Contenido, "Empleados_card");
-                Empleados_tabla.setModel(DTM);
-                DTM.setRowCount(0);
-
-                List<Empleado> empleados = new EmpleadoDAO().cargarEmpleados();
-                for(Empleado emp : empleados){
-                    Object[] fila = {
-                            emp.getNombre(),
-                            emp.getApellido(),
-                            emp.getEmail(),
-                            emp.getDireccion(),
-                            emp.getTelefono(),
-                            emp.getDni(),
-                            emp.getLegajo()
-                    };
-                    DTM.addRow(fila);
-                }
+                panelEmpleados.cargarListaEmpleados();
             }
         });
 
