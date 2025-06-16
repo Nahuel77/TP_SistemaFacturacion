@@ -41,6 +41,7 @@ public class Login extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreateUser newUser = new CreateUser(Login.this);
+                newUser.setVisible(true);
             }
         });
     }

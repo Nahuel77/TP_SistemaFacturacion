@@ -8,11 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/CreateUser.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/CreateUser.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/CreateUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/CreateUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Login.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modelo/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modelo/Usuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Persistencia/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistencia/UsuarioDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

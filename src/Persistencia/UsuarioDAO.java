@@ -14,7 +14,6 @@ public class UsuarioDAO {
 
             if(rs.next()){
                 int id = rs.getInt("idusers");
-                //todo: agregar devolucion de nombre de empleado para saludo
                 String sql2 = "SELECT nombre FROM empleados WHERE iduser = ?";
                 PreparedStatement ps2 = con.prepareStatement(sql2);
                 ps2.setInt(1, id);
