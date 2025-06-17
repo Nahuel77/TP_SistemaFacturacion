@@ -28,6 +28,7 @@ public class PanelClientes extends JPanel {
     private JTextField TelefonoIn;
     private JTextField DniIn;
 
+
     public PanelClientes(){
         setLayout(new BorderLayout());
 
