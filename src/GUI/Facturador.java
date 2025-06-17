@@ -23,6 +23,7 @@ public class Facturador extends JFrame {
     private JPanel Stock_card;
     private JPanel Facturacion_card;
     private JPanel Clientes_card;
+    private JPanel Menu;
     private String userName;
     private static DefaultTableModel DTM;
     private PanelEmpleados panelEmpleados;
@@ -35,7 +36,8 @@ public class Facturador extends JFrame {
         this.userName = user.getEmpleado();
         setContentPane(Facturador);
         setTitle("Facturador");
-        setSize(800, 600);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setResizable(false);
         setLocationRelativeTo(null);
         CardLayout cardLayout = (CardLayout) Contenido.getLayout();
         Bienvenida.setText("Bienvenido usuario " + userName);
