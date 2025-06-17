@@ -12,6 +12,9 @@ public class PanelClientes extends JPanel {
     private JTable empleadosTabla;
     private DefaultTableModel DTM;
     private JLabel Title;
+    private JButton Agregar;
+    private JButton Eliminar;
+    private JButton Editar;
 
     public PanelClientes(){
         setLayout(new BorderLayout());
@@ -21,6 +24,15 @@ public class PanelClientes extends JPanel {
         Title.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         Title.setHorizontalAlignment(SwingConstants.CENTER);
 
+        Agregar = new JButton("Agregar");
+        Eliminar = new JButton("Eliminar");
+        Editar = new JButton("Editar");
+        JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        botones.add(Agregar);
+        botones.add(Eliminar);
+        botones.add(Editar);
+        //Agregar.setSize();
+
         DTM = new DefaultTableModel(new Object[]{
                 "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I"
         }, 0);
@@ -29,6 +41,7 @@ public class PanelClientes extends JPanel {
 
         add(Title, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
+        add(botones, BorderLayout.SOUTH);
     }
 
     public void cargarListClientes(){
