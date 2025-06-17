@@ -26,6 +26,9 @@ public class Facturador extends JFrame {
     private String userName;
     private static DefaultTableModel DTM;
     private PanelEmpleados panelEmpleados;
+    private PanelClientes panelClientes;
+    private PanelProveedores panelProveedores;
+    private PanelStock panelStock;
 
     public Facturador(Usuario user) {
 
@@ -49,6 +52,17 @@ public class Facturador extends JFrame {
             }
         });
 
+        panelClientes = new PanelClientes();
+        Clientes_card.setLayout(new BorderLayout());
+        Clientes_card.add(panelClientes, BorderLayout.CENTER);
+        Clientes_btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(Contenido, "Clientes_card");
+                panelClientes.cargarListClientes();
+            }
+        });
+
         panelEmpleados = new PanelEmpleados();
         Empleados_card.setLayout(new BorderLayout());
         Empleados_card.add(panelEmpleados, BorderLayout.CENTER);
@@ -60,12 +74,18 @@ public class Facturador extends JFrame {
             }
         });
 
+        panelProveedores = new PanelProveedores();
+        Proveedores_card.setLayout(new BorderLayout());
+        Proveedores_card.add(panelProveedores, BorderLayout.CENTER);
         Proveedores_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(Contenido, "Proveedores_card");
             }
         });
+        panelStock = new PanelStock();
+        Stock_card.setLayout(new BorderLayout());
+        Stock_card.add(panelStock, BorderLayout.CENTER);
         Stock_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,11 +98,7 @@ public class Facturador extends JFrame {
                 cardLayout.show(Contenido, "Facturacion_card");
             }
         });
-        Clientes_btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(Contenido, "Clientes_card");
-            }
-        });
+
+
     }
 }

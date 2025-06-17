@@ -1,28 +1,28 @@
 package GUI;
 
-import Modelo.Empleado;
-import Persistencia.EmpleadoDAO;
+import Modelo.Cliente;
+import Persistencia.ClienteDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class PanelEmpleados extends JPanel {
+public class PanelClientes extends JPanel {
     private JTable empleadosTabla;
     private DefaultTableModel DTM;
     private JLabel Title;
 
-    public PanelEmpleados(){
+    public PanelClientes(){
         setLayout(new BorderLayout());
 
-        Title = new JLabel("Empleados");
+        Title = new JLabel("Clientes");
         Title.setFont(new Font("Arial", Font.BOLD, 24));
         Title.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         Title.setHorizontalAlignment(SwingConstants.CENTER);
 
         DTM = new DefaultTableModel(new Object[]{
-                "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I", "Legajo"
+                "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I"
         }, 0);
         empleadosTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(empleadosTabla);
@@ -31,27 +31,25 @@ public class PanelEmpleados extends JPanel {
         add(scroll, BorderLayout.CENTER);
     }
 
-    public void cargarListaEmpleados(){
+    public void cargarListClientes(){
         DTM.setRowCount(0);
-        List<Empleado> empleados = new EmpleadoDAO().cargarEmpleados();
-        for(Empleado emp : empleados){
+        List<Cliente> clientes = new ClienteDAO().cargarClientes();
+        for (Cliente cli : clientes){
             Object[] fila = {
-                    emp.getNombre(),
-                    emp.getApellido(),
-                    emp.getEmail(),
-                    emp.getDireccion(),
-                    emp.getTelefono(),
-                    emp.getDni(),
-                    emp.getLegajo()
+                    cli.getNombre(),
+                    cli.getApellido(),
+                    cli.getEmail(),
+                    cli.getDireccion(),
+                    cli.getTelefono(),
+                    cli.getDni()
             };
-
             DTM.addRow(fila);
         }
     }
 
-    public void registrarEmpleado(){}
+    public void registrarCliente(){}
 
-    public void actualizarEmpleado(){}
+    public void actualizarCliente(){}
 
-    public void bajaEmpleado(){}
+    public void bajaCliente(){}
 }

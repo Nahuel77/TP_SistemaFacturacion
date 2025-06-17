@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06981797-9068-4fce-84d7-6e2f9d964d9d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/PanelClientes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/PanelProveedores.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/PanelStock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modelo/Cliente.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modelo/Proveedor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modelo/Stock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Persistencia/ClienteDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Persistencia/ProveedorDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Persistencia/StockDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +38,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2yVd43a6JzBSj21bz0rcYvzIpjM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
