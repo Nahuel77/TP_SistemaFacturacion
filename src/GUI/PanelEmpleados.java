@@ -140,7 +140,7 @@ public class PanelEmpleados extends JPanel {
             DTM.addRow(fila);
         }
     }
-
+    //TODO: implementar metodos siguientes, pero recordar modificar la base de datos agregando una columna extra para la baja de un registro
     public void registrarEmpleado(){}
 
     public void actualizarEmpleado(){}

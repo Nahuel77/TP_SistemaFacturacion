@@ -8,8 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/PanelClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelClientes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PanelProveedores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelProveedores.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PanelStock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelStock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Persistencia/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistencia/ClienteDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,24 +36,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Login.executor": "Run",
-    "Application.Main.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "false",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "124",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "251",
-    "git-widget-placeholder": "main",
-    "onboarding.tips.debug.path": "C:/Users/Nahuel/IdeaProjects/TP_SistemaFacturacion/src/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Login.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;false&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;124&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;251&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Nahuel/IdeaProjects/TP_SistemaFacturacion/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="06981797-9068-4fce-84d7-6e2f9d964d9d" name="Changes" comment="" />

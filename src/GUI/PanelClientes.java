@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PanelClientes extends JPanel {
     private JTable empleadosTabla;
@@ -113,6 +115,22 @@ public class PanelClientes extends JPanel {
         add(Title, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
+
+        Agregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new ClienteDAO().altaCliente(NombreIn.getText(), ApellidoIn.getText(), EmailIn.getText(), DireccionIn.getText(), TelefonoIn.getText(), DniIn.getText());
+                    cargarListClientes();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                }
+            }
+        });
     }
 
     public void cargarListClientes(){
@@ -131,9 +149,17 @@ public class PanelClientes extends JPanel {
         }
     }
 
-    public void registrarCliente(){}
-
     public void actualizarCliente(){}
 
     public void bajaCliente(){}
+
+    private boolean validarCampos(){
+        JTextField[] campos = {NombreIn, ApellidoIn, EmailIn, DireccionIn, TelefonoIn, DniIn};
+        for(JTextField campo : campos){
+            if(campo.getText().trim().length() == 0){
+                return false;
+            }
+        }
+        return true;
+    }
 }
