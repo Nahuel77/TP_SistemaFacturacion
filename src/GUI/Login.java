@@ -30,13 +30,14 @@ public class Login extends JDialog {
 
                 if(user != null){
                     dispose();
-                    Facturador facturador = new Facturador(user);
+                    Inicio inicio = new Inicio(user);
                     System.out.println("Login Exitoso");
                 }else{
                     System.out.println("Login Fallido");
                 }
             }
         });
+
         NewUser_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

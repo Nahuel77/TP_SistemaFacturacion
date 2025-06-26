@@ -31,8 +31,11 @@ public class Facturador extends JFrame {
     private PanelProveedores panelProveedores;
     private PanelStock panelStock;
 
-    public Facturador(Usuario user) {
+    private String seccion;
 
+    public Facturador(Usuario user, String seccion) {
+
+        this.seccion = seccion;
         this.userName = user.getEmpleado();
         setContentPane(Facturador);
         setTitle("Facturador");

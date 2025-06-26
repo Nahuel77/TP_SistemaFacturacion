@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06981797-9068-4fce-84d7-6e2f9d964d9d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/GUI/Clientes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Empleados.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Facturacion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Inicio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Menu.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Proveedores.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Stock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PanelClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelClientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Persistencia/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistencia/ClienteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Facturador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Facturador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +50,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;false&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;124&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;251&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
