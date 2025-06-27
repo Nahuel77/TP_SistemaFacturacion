@@ -1,11 +1,14 @@
 package GUI;
 
 import Modelo.Empleado;
+import Persistencia.ClienteDAO;
 import Persistencia.EmpleadoDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PanelEmpleados extends JPanel {
@@ -29,6 +32,7 @@ public class PanelEmpleados extends JPanel {
     private JTextField TelefonoIn;
     private JTextField DniIn;
     private JTextField LegajoIn;
+    private String idEmpleados;
 
     public PanelEmpleados(){
         setLayout(new BorderLayout());
@@ -113,7 +117,7 @@ public class PanelEmpleados extends JPanel {
         panelInferior.add(botones);
 
         DTM = new DefaultTableModel(new Object[]{
-                "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I", "Legajo"
+                "ID", "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I", "Legajo"
         }, 0);
         empleadosTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(empleadosTabla);
@@ -121,6 +125,92 @@ public class PanelEmpleados extends JPanel {
         add(Title, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
+
+        empleadosTabla.getSelectionModel().addListSelectionListener(e->{
+            if(!e.getValueIsAdjusting()){
+                int fila = empleadosTabla.getSelectedRow();
+                if(fila!=-1){
+                    this.idEmpleados = empleadosTabla.getValueAt(fila, 0).toString();
+                    String nombre = empleadosTabla.getValueAt(fila, 1).toString();
+                    String apellido = empleadosTabla.getValueAt(fila, 2).toString();
+                    String email = empleadosTabla.getValueAt(fila, 3).toString();
+                    String direccion = empleadosTabla.getValueAt(fila, 4).toString();
+                    String telefono = empleadosTabla.getValueAt(fila, 5).toString();
+                    String dni = empleadosTabla.getValueAt(fila, 6).toString();
+                    String legajo = empleadosTabla.getValueAt(fila, 7).toString();
+
+                    NombreIn.setText(nombre);
+                    ApellidoIn.setText(apellido);
+                    EmailIn.setText(email);
+                    DireccionIn.setText(direccion);
+                    TelefonoIn.setText(telefono);
+                    DniIn.setText(dni);
+                    LegajoIn.setText(legajo);
+                }
+            }
+        });
+
+        Agregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new EmpleadoDAO().altaEmpleado(NombreIn.getText(), ApellidoIn.getText(), EmailIn.getText(), DireccionIn.getText(), TelefonoIn.getText(), DniIn.getText(), LegajoIn.getText());
+                    cargarListaEmpleados();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                    LegajoIn.setText("");
+                }
+            }
+        });
+
+        Eliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(idEmpleados!=null){
+                    new EmpleadoDAO().bajaEmpleado(idEmpleados);
+                    cargarListaEmpleados();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                    idEmpleados = null;
+                }
+            }
+        });
+
+        Editar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new EmpleadoDAO().updateEmpleado(idEmpleados, NombreIn.getText(), ApellidoIn.getText(), EmailIn.getText(), DireccionIn.getText(), TelefonoIn.getText(), DniIn.getText(), LegajoIn.getText());
+                    cargarListaEmpleados();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                    LegajoIn.setText("");
+                    idEmpleados = null;
+                }
+            }
+        });
+    }
+
+    private boolean validarCampos(){
+        JTextField[] campos = {NombreIn, ApellidoIn, EmailIn, DireccionIn, TelefonoIn, DniIn, LegajoIn};
+        for(JTextField campo : campos){
+            if(campo.getText().trim().length() == 0){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void cargarListaEmpleados(){
@@ -128,6 +218,7 @@ public class PanelEmpleados extends JPanel {
         List<Empleado> empleados = new EmpleadoDAO().cargarEmpleados();
         for(Empleado emp : empleados){
             Object[] fila = {
+                    emp.getId(),
                     emp.getNombre(),
                     emp.getApellido(),
                     emp.getEmail(),
@@ -140,10 +231,4 @@ public class PanelEmpleados extends JPanel {
             DTM.addRow(fila);
         }
     }
-    //TODO: implementar metodos siguientes, pero recordar modificar la base de datos agregando una columna extra para la baja de un registro
-    public void registrarEmpleado(){}
-
-    public void actualizarEmpleado(){}
-
-    public void bajaEmpleado(){}
 }

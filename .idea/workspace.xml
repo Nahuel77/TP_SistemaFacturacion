@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="06981797-9068-4fce-84d7-6e2f9d964d9d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Clientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Clientes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/PanelClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelClientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modelo/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modelo/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PanelEmpleados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modelo/Empleado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modelo/Empleado.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Persistencia/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistencia/ClienteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Persistencia/EmpleadoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistencia/EmpleadoDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

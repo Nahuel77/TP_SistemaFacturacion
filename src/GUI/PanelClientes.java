@@ -107,7 +107,7 @@ public class PanelClientes extends JPanel {
         panelInferior.add(botones);
 
         DTM = new DefaultTableModel(new Object[]{
-                "ID", "Nombre", "Apellido", "E-Mail", "Dirección", "Telefono", "D.N.I"
+                "ID", "Nombre", "Apellido", "E-Mail", "Dirección", "Telefono", "D.N.I."
         }, 0);
         clientesTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(clientesTabla);

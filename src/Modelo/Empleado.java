@@ -8,8 +8,10 @@ public class Empleado {
     private int telefono;
     private int dni;
     private int legajo;
+    private int id;
 
-    public Empleado(String nombre, String apellido, String email, String direccion, int telefono, int dni, int legajo){
+    public Empleado(int id, String nombre, String apellido, String email, String direccion, int telefono, int dni, int legajo){
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -46,4 +48,6 @@ public class Empleado {
     public int getLegajo() {
         return legajo;
     }
+
+    public int getId(){return id;}
 }
