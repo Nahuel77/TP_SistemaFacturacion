@@ -7,14 +7,16 @@ public class Proveedor {
     private String direccion;
     private int telefono;
     private int dni;
+    private int id;
 
-    public Proveedor(String nombre, String apellido, String email, String direccion, int telefono, int dni){
+    public Proveedor(int id, String nombre, String apellido, String email, String direccion, int telefono, int dni){
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.direccion = direccion;
         this.telefono = telefono;
         this.dni = dni;
+        this.id = id;
     }
 
     public String getNombre(){
@@ -40,4 +42,6 @@ public class Proveedor {
     public int getDni() {
         return dni;
     }
+
+    public int getId(){return id;}
 }

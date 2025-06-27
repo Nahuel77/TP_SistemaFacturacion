@@ -1,11 +1,14 @@
 package GUI;
 
 import Modelo.Proveedor;
+import Persistencia.ClienteDAO;
 import Persistencia.ProveedorDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PanelProveedores extends JPanel {
@@ -27,6 +30,7 @@ public class PanelProveedores extends JPanel {
     private JTextField DireccionIn;
     private JTextField TelefonoIn;
     private JTextField DniIn;
+    private String idProveedor;
 
     public PanelProveedores(){
         setLayout(new BorderLayout());
@@ -104,7 +108,7 @@ public class PanelProveedores extends JPanel {
         panelInferior.add(botones);
 
         DTM = new DefaultTableModel(new Object[]{
-                "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I"
+                "ID", "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I"
         }, 0);
         proveedoresTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(proveedoresTabla);
@@ -112,6 +116,78 @@ public class PanelProveedores extends JPanel {
         add(Title, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
+
+        Agregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new ProveedorDAO().altaProveedor(NombreIn.getText(), ApellidoIn.getText(), EmailIn.getText(), DireccionIn.getText(), TelefonoIn.getText(), DniIn.getText());
+                    cargarListaProveedores();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                }
+            }
+        });
+
+        proveedoresTabla.getSelectionModel().addListSelectionListener(e->{
+            if(!e.getValueIsAdjusting()){
+                int fila = proveedoresTabla.getSelectedRow();
+                if(fila!=-1){
+                    this.idProveedor = proveedoresTabla.getValueAt(fila, 0).toString();
+                    String nombre = proveedoresTabla.getValueAt(fila, 1).toString();
+                    String apellido = proveedoresTabla.getValueAt(fila, 2).toString();
+                    String email = proveedoresTabla.getValueAt(fila, 3).toString();
+                    String direccion = proveedoresTabla.getValueAt(fila, 4).toString();
+                    String telefono = proveedoresTabla.getValueAt(fila, 5).toString();
+                    String dni = proveedoresTabla.getValueAt(fila, 6).toString();
+
+                    NombreIn.setText(nombre);
+                    ApellidoIn.setText(apellido);
+                    EmailIn.setText(email);
+                    DireccionIn.setText(direccion);
+                    TelefonoIn.setText(telefono);
+                    DniIn.setText(dni);
+                }
+            }
+        });
+
+        Editar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new ProveedorDAO().updateProveedor(idProveedor, NombreIn.getText(), ApellidoIn.getText(), EmailIn.getText(), DireccionIn.getText(), TelefonoIn.getText(), DniIn.getText());
+                    cargarListaProveedores();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                    idProveedor = null;
+                }
+            }
+        });
+
+        Eliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(idProveedor!=null){
+                    new ProveedorDAO().bajaProveedor(idProveedor);
+                    cargarListaProveedores();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                    idProveedor = null;
+                }
+            }
+        });
     }
 
     public void cargarListaProveedores(){
@@ -119,6 +195,7 @@ public class PanelProveedores extends JPanel {
         List<Proveedor> proveedores = new ProveedorDAO().cargarProveedores();
         for(Proveedor pro : proveedores){
             Object[] lista = {
+                    pro.getId(),
                     pro.getNombre(),
                     pro.getApellido(),
                     pro.getEmail(),
@@ -130,9 +207,13 @@ public class PanelProveedores extends JPanel {
         }
     }
 
-    public void registrarProveedores(){}
-
-    public void actualizarProveedores(){}
-
-    public void bajaProveedores(){}
+    private boolean validarCampos(){
+        JTextField[] campos = {NombreIn, ApellidoIn, EmailIn, DireccionIn, TelefonoIn, DniIn};
+        for(JTextField campo : campos){
+            if(campo.getText().trim().length() == 0){
+                return false;
+            }
+        }
+        return true;
+    }
 }

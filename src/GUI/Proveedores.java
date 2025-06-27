@@ -21,6 +21,7 @@ public class Proveedores extends JFrame{
         panelPrincipal.add(pro, BorderLayout.CENTER);
 
         setContentPane(panelPrincipal);
+        pro.cargarListaProveedores();
 
         setVisible(true);
 

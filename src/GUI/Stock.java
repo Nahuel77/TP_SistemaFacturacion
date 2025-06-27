@@ -21,6 +21,7 @@ public class Stock extends JFrame {
         panelPrincipal.add(stk, BorderLayout.CENTER);
 
         setContentPane(panelPrincipal);
+        stk.cargarListaStock();
 
         setVisible(true);
 

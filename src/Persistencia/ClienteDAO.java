@@ -48,7 +48,6 @@ public class ClienteDAO {
             ps.setInt(6, DniInt);
             ps.setInt(7, 1);
             ps.executeUpdate();
-            //System.out.println("Alta de cliente exitosa");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
