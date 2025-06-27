@@ -6,8 +6,10 @@ public class Stock {
     private float precio;
     private int cantidad;
     private String estados;
+    private int id;
 
-    public Stock(String nombre, String proovedor, float precio, int cantidad, String estados){
+    public Stock(int id, String nombre, String proovedor, float precio, int cantidad, String estados){
+        this.id = id;
         this.nombre = nombre;
         this.proovedor = proovedor;
         this.precio = precio;
@@ -24,4 +26,6 @@ public class Stock {
     public int getCantidad(){ return cantidad; }
 
     public String getEstados(){ return estados; }
+
+    public int getId(){return id;}
 }

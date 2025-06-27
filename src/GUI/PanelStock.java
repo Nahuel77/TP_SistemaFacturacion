@@ -1,11 +1,14 @@
 package GUI;
 
 import Modelo.Stock;
+import Persistencia.ProveedorDAO;
 import Persistencia.StockDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PanelStock extends JPanel {
@@ -25,6 +28,7 @@ public class PanelStock extends JPanel {
     private JTextField PrecioIn;
     private JTextField CantidadIn;
     private JTextField EstadosIn;
+    private String idStock;
 
     public PanelStock(){
         setLayout(new BorderLayout());
@@ -95,7 +99,7 @@ public class PanelStock extends JPanel {
         panelInferior.add(botones);
 
         DTM = new DefaultTableModel(new Object[]{
-                "Nombre", "Proveedor", "Precio", "Cantidad", "Estados"
+                "ID", "Nombre", "Proveedor", "Precio", "Cantidad", "Estados"
         }, 0);
         stockTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(stockTabla);
@@ -103,6 +107,73 @@ public class PanelStock extends JPanel {
         add(Title, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
+
+        Agregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new StockDAO().altaStock(NombreIn.getText(), ProveedorIn.getText(), PrecioIn.getText(), CantidadIn.getText(), EstadosIn.getText());
+                    cargarListaStock();
+                    NombreIn.setText("");
+                    ProveedorIn.setText("");
+                    PrecioIn.setText("");
+                    CantidadIn.setText("");
+                    EstadosIn.setText("");
+                }
+            }
+        });
+
+        stockTabla.getSelectionModel().addListSelectionListener(e->{
+            if(!e.getValueIsAdjusting()){
+                int fila = stockTabla.getSelectedRow();
+                if(fila!=-1){
+                    this.idStock = stockTabla.getValueAt(fila, 0).toString();
+                    String nombre = stockTabla.getValueAt(fila, 1).toString();
+                    String proveedor = stockTabla.getValueAt(fila, 2).toString();
+                    String precio = stockTabla.getValueAt(fila, 3).toString();
+                    String cantidad = stockTabla.getValueAt(fila, 4).toString();
+                    String estados = stockTabla.getValueAt(fila, 5).toString();
+
+                    NombreIn.setText(nombre);
+                    ProveedorIn.setText(proveedor);
+                    PrecioIn.setText(precio);
+                    CantidadIn.setText(cantidad);
+                    EstadosIn.setText(estados);
+                }
+            }
+        });
+
+        Editar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new StockDAO().updateStock(idStock, NombreIn.getText(), ProveedorIn.getText(), PrecioIn.getText(), CantidadIn.getText(), EstadosIn.getText());
+                    cargarListaStock();
+                    NombreIn.setText("");
+                    ProveedorIn.setText("");
+                    PrecioIn.setText("");
+                    CantidadIn.setText("");
+                    EstadosIn.setText("");
+                    idStock = null;
+                }
+            }
+        });
+
+        Eliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(idStock!=null){
+                    new StockDAO().bajaStock(idStock);
+                    cargarListaStock();
+                    NombreIn.setText("");
+                    ProveedorIn.setText("");
+                    PrecioIn.setText("");
+                    CantidadIn.setText("");
+                    EstadosIn.setText("");
+                    idStock = null;
+                }
+            }
+        });
     }
 
     public void cargarListaStock(){
@@ -110,6 +181,7 @@ public class PanelStock extends JPanel {
         List<Stock> stocks = new StockDAO().cargarStock();
         for(Stock stk : stocks){
             Object[] lista = {
+                    stk.getId(),
                     stk.getNombre(),
                     stk.getProovedor(),
                     stk.getPrecio(),
@@ -120,9 +192,13 @@ public class PanelStock extends JPanel {
         }
     }
 
-    public void registrarStock(){}
-
-    public void actualizarStock(){}
-
-    public void bajaStock(){}
+    private boolean validarCampos(){
+        JTextField[] campos = {NombreIn, ProveedorIn, PrecioIn, CantidadIn, EstadosIn };
+        for(JTextField campo : campos){
+            if(campo.getText().trim().length() == 0){
+                return false;
+            }
+        }
+        return true;
+    }
 }

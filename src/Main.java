@@ -9,3 +9,6 @@ public class Main {
         login.setVisible(true);
     }
 }
+
+//TODO: agregar validaciones a los inputs. Que solo se pueda agregar numeros en los campos numericos
+//TODO: solucionar entrada de flotantes con coma o punto. (no funcionan con coma). Tampoco guardan los decimales correctamente.
