@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PanelClientes extends JPanel {
-    private JTable empleadosTabla;
+    private JTable clientesTabla;
     private DefaultTableModel DTM;
     private JLabel Title;
     private JLabel NombreLbl;
@@ -29,7 +29,7 @@ public class PanelClientes extends JPanel {
     private JTextField DireccionIn;
     private JTextField TelefonoIn;
     private JTextField DniIn;
-
+    private String idCliente;
 
     public PanelClientes(){
         setLayout(new BorderLayout());
@@ -107,10 +107,10 @@ public class PanelClientes extends JPanel {
         panelInferior.add(botones);
 
         DTM = new DefaultTableModel(new Object[]{
-                "Nombre", "Apellido", "E-Mail", "Direccion", "Telefono", "D.N.I"
+                "ID", "Nombre", "Apellido", "E-Mail", "Dirección", "Telefono", "D.N.I"
         }, 0);
-        empleadosTabla = new JTable(DTM);
-        JScrollPane scroll = new JScrollPane(empleadosTabla);
+        clientesTabla = new JTable(DTM);
+        JScrollPane scroll = new JScrollPane(clientesTabla);
 
         add(Title, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
@@ -131,6 +131,62 @@ public class PanelClientes extends JPanel {
                 }
             }
         });
+
+        clientesTabla.getSelectionModel().addListSelectionListener(e->{
+            if(!e.getValueIsAdjusting()){
+                int fila = clientesTabla.getSelectedRow();
+                if(fila!=-1){
+                    this.idCliente = clientesTabla.getValueAt(fila, 0).toString();
+                    String nombre = clientesTabla.getValueAt(fila, 1).toString();
+                    String apellido = clientesTabla.getValueAt(fila, 2).toString();
+                    String email = clientesTabla.getValueAt(fila, 3).toString();
+                    String direccion = clientesTabla.getValueAt(fila, 4).toString();
+                    String telefono = clientesTabla.getValueAt(fila, 5).toString();
+                    String dni = clientesTabla.getValueAt(fila, 6).toString();
+
+                    NombreIn.setText(nombre);
+                    ApellidoIn.setText(apellido);
+                    EmailIn.setText(email);
+                    DireccionIn.setText(direccion);
+                    TelefonoIn.setText(telefono);
+                    DniIn.setText(dni);
+                }
+            }
+        });
+
+        Editar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarCampos()) {
+                    new ClienteDAO().updateCliente(idCliente, NombreIn.getText(), ApellidoIn.getText(), EmailIn.getText(), DireccionIn.getText(), TelefonoIn.getText(), DniIn.getText());
+                    cargarListClientes();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                    idCliente = null;
+                }
+            }
+        });
+
+        Eliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(idCliente!=null){
+                    new ClienteDAO().bajaCliente(idCliente);
+                    cargarListClientes();
+                    NombreIn.setText("");
+                    ApellidoIn.setText("");
+                    EmailIn.setText("");
+                    DireccionIn.setText("");
+                    TelefonoIn.setText("");
+                    DniIn.setText("");
+                    idCliente = null;
+                }
+            }
+        });
     }
 
     public void cargarListClientes(){
@@ -138,6 +194,7 @@ public class PanelClientes extends JPanel {
         List<Cliente> clientes = new ClienteDAO().cargarClientes();
         for (Cliente cli : clientes){
             Object[] fila = {
+                    cli.getId(),
                     cli.getNombre(),
                     cli.getApellido(),
                     cli.getEmail(),
@@ -148,10 +205,6 @@ public class PanelClientes extends JPanel {
             DTM.addRow(fila);
         }
     }
-
-    public void actualizarCliente(){}
-
-    public void bajaCliente(){}
 
     private boolean validarCampos(){
         JTextField[] campos = {NombreIn, ApellidoIn, EmailIn, DireccionIn, TelefonoIn, DniIn};

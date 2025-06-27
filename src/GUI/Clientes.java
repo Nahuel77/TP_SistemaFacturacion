@@ -22,7 +22,6 @@ public class Clientes  extends JFrame {
         setContentPane(panelPrincipal);
         cli.cargarListClientes();
 
-
         setVisible(true);
 
         menu.getInicio_btn().addActionListener(e->{

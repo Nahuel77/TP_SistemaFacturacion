@@ -7,8 +7,10 @@ public class Cliente {
     private String direccion;
     private int telefono;
     private int dni;
+    private int id;
 
-    public Cliente(String nombre, String apellido, String email, String direccion, int telefono, int dni){
+    public Cliente(int id, String nombre, String apellido, String email, String direccion, int telefono, int dni){
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -40,4 +42,6 @@ public class Cliente {
     public int getDni() {
         return dni;
     }
+
+    public int getId(){return id;}
 }
