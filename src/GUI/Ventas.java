@@ -15,7 +15,7 @@ public class Ventas extends JFrame {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
         Menu menu = new Menu(6);
-        PanelVentas ven = new PanelVentas();
+        PanelVentas ven = new PanelVentas(user);
 
         panelPrincipal.add(menu, BorderLayout.NORTH);
         panelPrincipal.add(ven, BorderLayout.CENTER);
