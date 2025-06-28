@@ -50,9 +50,9 @@ public class Clientes  extends JFrame {
             dispose();
         });
         menu.getFacturacion_btn().addActionListener(e->{
-            System.out.println("Facturacion clickeado");
-            Facturacion facturacion = new Facturacion(user);
-            facturacion.setVisible(true);
+            System.out.println("Ventas clickeado");
+            Ventas ventas = new Ventas(user);
+            ventas.setVisible(true);
             dispose();
         });
     }
