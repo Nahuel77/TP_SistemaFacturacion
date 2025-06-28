@@ -33,6 +33,7 @@ public class PanelClientes extends JPanel {
 
     public PanelClientes(){
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         Title = new JLabel("Clientes");
         Title.setFont(new Font("Arial", Font.BOLD, 24));

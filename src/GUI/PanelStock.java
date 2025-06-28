@@ -32,6 +32,7 @@ public class PanelStock extends JPanel {
 
     public PanelStock(){
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         Title = new JLabel("Stock");
         Title.setFont(new Font("Arial", Font.BOLD, 24));

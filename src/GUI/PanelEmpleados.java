@@ -36,6 +36,7 @@ public class PanelEmpleados extends JPanel {
 
     public PanelEmpleados(){
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         Title = new JLabel("Empleados");
         Title.setFont(new Font("Arial", Font.BOLD, 24));

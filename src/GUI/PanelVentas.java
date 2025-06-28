@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class PanelVentas extends JPanel{
+public class PanelVentas extends JPanel {
     private JLabel Title;
     private JTable ventasTabla;
     private DefaultTableModel DTM;
@@ -28,15 +28,18 @@ public class PanelVentas extends JPanel{
     private DefaultComboBoxModel<String> modeloClienteCombo;
     private JComboBox ClienteBox;
 
-    public PanelVentas(Usuario user){
+    public PanelVentas(Usuario user) {
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        Title = new JLabel("Ventas");
+        // Título
+        Title = new JLabel("Venta");
         Title.setFont(new Font("Arial", Font.BOLD, 24));
         Title.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         Title.setHorizontalAlignment(SwingConstants.CENTER);
         add(Title, BorderLayout.NORTH);
 
+        // SECCIÓN PRODUCTOS (IZQUIERDA)
         JPanel ProductosSeccion = new JPanel();
         ProductosSeccion.setLayout(new BoxLayout(ProductosSeccion, BoxLayout.Y_AXIS));
 
@@ -50,57 +53,96 @@ public class PanelVentas extends JPanel{
         JPanel panelInferior = new JPanel();
         ProductNameLb = new JLabel("Producto: ");
         panelInferior.add(ProductNameLb);
+
         modeloCombo = new DefaultComboBoxModel<>();
         List<Modelo.Stock> stocks = new StockDAO().cargarStock();
-        for(Stock stk : stocks){
+        for (Stock stk : stocks) {
             modeloCombo.addElement(stk.getNombre());
         }
         ProductosBox = new JComboBox<>(modeloCombo);
         panelInferior.add(ProductosBox);
-        //TODO en este field "DescuentoUniIn", realizar una validacion que verifique que la cantidad de unidades
-        // ingresadas no sean mayores a las unidades en stock
+
         DescuentoLb = new JLabel("Descuento: ");
         panelInferior.add(DescuentoLb);
+
         DescuentoUniIn = new JTextField();
-        DescuentoUniIn.setPreferredSize(new Dimension(170,40));
+        DescuentoUniIn.setPreferredSize(new Dimension(170, 40));
         panelInferior.add(DescuentoUniIn);
+
+        JLabel UnidadesLb = new JLabel("Unidades: ");
+        panelInferior.add(UnidadesLb);
+
+        JTextField UnidadesIn = new JTextField();
+        UnidadesIn.setPreferredSize(new Dimension(170, 40));
+        panelInferior.add(UnidadesIn);
+
         AgregarBtn = new JButton("Agregar");
         panelInferior.add(AgregarBtn);
 
         ProductosSeccion.add(panelInferior);
-
         add(ProductosSeccion, BorderLayout.WEST);
 
+        // SECCIÓN DATOS CLIENTE, DESCUENTO Y TOTAL(DERECHA)
         JPanel DatosClienteSeccion = new JPanel();
         DatosClienteSeccion.setLayout(new BoxLayout(DatosClienteSeccion, BoxLayout.Y_AXIS));
+        DatosClienteSeccion.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-
-        EmpleadoLb = new JLabel("Empleado " + user.getEmpleado() );
+        // Empleado
+        EmpleadoLb = new JLabel("Empleado: " + user.getEmpleado());
+        EmpleadoLb.setAlignmentX(Component.LEFT_ALIGNMENT);
         DatosClienteSeccion.add(EmpleadoLb);
-        JPanel ClientePanel = new JPanel();
-        ClienteLb = new JLabel("Cliente: ");
-        ClientePanel.add(ClienteLb);
+        DatosClienteSeccion.add(Box.createVerticalStrut(10));
 
+        // Cliente Panel
+        JPanel ClientePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        ClientePanel.setMaximumSize(new Dimension(300, 40));
+        ClientePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        ClienteLb = new JLabel("Cliente: ");
         modeloClienteCombo = new DefaultComboBoxModel<>();
         List<Modelo.Cliente> clientes = new ClienteDAO().cargarClientes();
-        for(Cliente cli : clientes){
+        for (Cliente cli : clientes) {
             modeloClienteCombo.addElement(cli.getNombre());
         }
         ClienteBox = new JComboBox<>(modeloClienteCombo);
+        ClientePanel.add(ClienteLb);
         ClientePanel.add(ClienteBox);
         DatosClienteSeccion.add(ClientePanel);
+        DatosClienteSeccion.add(Box.createVerticalStrut(10));
 
-        JPanel TotalPanel = new JPanel();
+        // Descuento Panel
+        JPanel DescuentoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        DescuentoPanel.setMaximumSize(new Dimension(300, 70));
+        DescuentoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel DescLb = new JLabel("Descuento sobre total: ");
+        JTextField DescIn = new JTextField();
+        DescIn.setPreferredSize(new Dimension(170, 30));
+        DescuentoPanel.add(DescLb);
+        DescuentoPanel.add(DescIn);
+        DatosClienteSeccion.add(DescuentoPanel);
+        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+
+        // Total Panel
+        JPanel TotalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        TotalPanel.setMaximumSize(new Dimension(300, 40));
+        TotalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         TotalLb = new JLabel("Total:");
-        TotalPanel.add(TotalLb);
+        TotalLb.setFont(new Font("Arial", Font.BOLD, 15));
         Total = new JTextPane();
         Total.setText("2000");
+        Total.setPreferredSize(new Dimension(100, 30));
+        Total.setEditable(false);
+
+        TotalPanel.add(TotalLb);
         TotalPanel.add(Total);
         DatosClienteSeccion.add(TotalPanel);
+        DatosClienteSeccion.add(Box.createVerticalStrut(10));
 
         add(DatosClienteSeccion, BorderLayout.EAST);
-
     }
 
-    public void calcularTotal(){}
+    public void calcularTotal() {
+    }
 }

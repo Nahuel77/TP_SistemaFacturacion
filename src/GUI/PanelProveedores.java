@@ -34,6 +34,7 @@ public class PanelProveedores extends JPanel {
 
     public PanelProveedores(){
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         Title = new JLabel("Proveedores");
         Title.setFont(new Font("Arial", Font.BOLD, 24));
