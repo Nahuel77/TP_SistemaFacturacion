@@ -5,6 +5,7 @@ import Modelo.Stock;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,14 +82,30 @@ public class StockDAO {
         try(Connection con = Conn.getConn()){
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, StockId);
-            int estado = ps.executeUpdate();
+            /*int estado = ps.executeUpdate();
             if(estado > 0){
                 System.out.println("Baja de stock exitosa");
             }else{
                 System.out.println("Falla al dar baja al stock");
-            }
+            }*/
             ps.close();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int getPriceByName(String nombre){
+        String sql = "SELECT precio FROM stock WHERE nombre = ?";
+        try(Connection con = Conn.getConn()){
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("precio");
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

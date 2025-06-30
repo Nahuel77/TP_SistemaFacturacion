@@ -1,6 +1,7 @@
 package GUI;
 
 import Modelo.Cliente;
+import Modelo.ListaVenta;
 import Modelo.Stock;
 import Modelo.Usuario;
 import Persistencia.ClienteDAO;
@@ -9,6 +10,8 @@ import Persistencia.StockDAO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PanelVentas extends JPanel {
@@ -44,7 +47,7 @@ public class PanelVentas extends JPanel {
         ProductosSeccion.setLayout(new BoxLayout(ProductosSeccion, BoxLayout.Y_AXIS));
 
         DTM = new DefaultTableModel(new Object[]{
-                "Nombre del Producto", "Precio", "Unidades", "Descuento"
+                "Nombre del Producto", "Precio", "Unidades", "Descuento por unidad"
         }, 0);
         ventasTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(ventasTabla);
@@ -56,18 +59,12 @@ public class PanelVentas extends JPanel {
 
         modeloCombo = new DefaultComboBoxModel<>();
         List<Modelo.Stock> stocks = new StockDAO().cargarStock();
+        modeloCombo.addElement("--");
         for (Stock stk : stocks) {
             modeloCombo.addElement(stk.getNombre());
         }
         ProductosBox = new JComboBox<>(modeloCombo);
         panelInferior.add(ProductosBox);
-
-        DescuentoLb = new JLabel("Descuento: ");
-        panelInferior.add(DescuentoLb);
-
-        DescuentoUniIn = new JTextField();
-        DescuentoUniIn.setPreferredSize(new Dimension(170, 40));
-        panelInferior.add(DescuentoUniIn);
 
         JLabel UnidadesLb = new JLabel("Unidades: ");
         panelInferior.add(UnidadesLb);
@@ -75,6 +72,13 @@ public class PanelVentas extends JPanel {
         JTextField UnidadesIn = new JTextField();
         UnidadesIn.setPreferredSize(new Dimension(170, 40));
         panelInferior.add(UnidadesIn);
+
+        DescuentoLb = new JLabel("Descuento: ");
+        panelInferior.add(DescuentoLb);
+
+        DescuentoUniIn = new JTextField();
+        DescuentoUniIn.setPreferredSize(new Dimension(170, 40));
+        panelInferior.add(DescuentoUniIn);
 
         AgregarBtn = new JButton("Agregar");
         panelInferior.add(AgregarBtn);
@@ -101,6 +105,7 @@ public class PanelVentas extends JPanel {
         ClienteLb = new JLabel("Cliente: ");
         modeloClienteCombo = new DefaultComboBoxModel<>();
         List<Modelo.Cliente> clientes = new ClienteDAO().cargarClientes();
+        modeloClienteCombo.addElement("--");
         for (Cliente cli : clientes) {
             modeloClienteCombo.addElement(cli.getNombre());
         }
@@ -141,8 +146,54 @@ public class PanelVentas extends JPanel {
         DatosClienteSeccion.add(Box.createVerticalStrut(10));
 
         add(DatosClienteSeccion, BorderLayout.EAST);
+
+        AgregarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String producto = (String) ProductosBox.getSelectedItem();
+                String unidades = UnidadesIn.getText();
+                String descuento = DescuentoUniIn.getText();
+                if(validarProductos(producto, unidades, descuento)){
+                    setearListaVenta(producto, unidades, descuento);
+                    UnidadesIn.setText("");
+                    DescuentoUniIn.setText("");
+                    ProductosBox.setSelectedIndex(0);
+                }
+            }
+        });
     }
 
     public void calcularTotal() {
+
+    }
+
+    public boolean validarProductos(String producto, String unidades, String descuento){
+        //CONSIDERAR dAR ALCANCE GLOBAL A LA FUNCION NAN PARA TODAS LAS VALIDACIONES
+        if(producto == "--"){
+            System.out.println("es --");
+            return false;
+        }
+
+        try{
+            int descInt = Integer.parseInt(descuento);
+        }catch (NumberFormatException e){
+            System.out.println("desc no es num");
+            return false;
+        }
+
+        try{
+            int cantidad = Integer.parseInt(unidades);
+        }catch (NumberFormatException e){
+            System.out.println("cant no es num");
+            return false;
+        }
+
+        return true;
+    }
+
+    public void setearListaVenta(String productos, String unidades, String descuento){
+        int precioUnidad = new StockDAO().getPriceByName(productos);
+        Object[] fila = {productos, precioUnidad, unidades, descuento};
+        DTM.addRow(fila);
     }
 }
