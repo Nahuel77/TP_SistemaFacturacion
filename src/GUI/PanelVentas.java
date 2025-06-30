@@ -47,7 +47,7 @@ public class PanelVentas extends JPanel {
         ProductosSeccion.setLayout(new BoxLayout(ProductosSeccion, BoxLayout.Y_AXIS));
 
         DTM = new DefaultTableModel(new Object[]{
-                "Nombre del Producto", "Precio", "Unidades", "Descuento por unidad"
+                "Nombre del Producto", "Precio", "Unidades", "Total", "Descuento por unidad", "Total con Descuento"
         }, 0);
         ventasTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(ventasTabla);
@@ -136,7 +136,7 @@ public class PanelVentas extends JPanel {
         TotalLb = new JLabel("Total:");
         TotalLb.setFont(new Font("Arial", Font.BOLD, 15));
         Total = new JTextPane();
-        Total.setText("2000");
+        Total.setText("");
         Total.setPreferredSize(new Dimension(100, 30));
         Total.setEditable(false);
 
@@ -158,13 +158,26 @@ public class PanelVentas extends JPanel {
                     UnidadesIn.setText("");
                     DescuentoUniIn.setText("");
                     ProductosBox.setSelectedIndex(0);
+                    double total = calcularTotal();
+                    Total.setText(String.valueOf(total));
                 }
             }
         });
     }
 
-    public void calcularTotal() {
-
+    public double calcularTotal() {
+        double total = 0;
+        for (int i = 0; i < ventasTabla.getRowCount(); i++) {
+            Object valor = ventasTabla.getValueAt(i, 5);
+            if (valor != null) {
+                try {
+                    total += Double.parseDouble(valor.toString());
+                } catch (NumberFormatException e) {
+                    System.out.println("Error al sumar total");
+                }
+            }
+        }
+        return total;
     }
 
     public boolean validarProductos(String producto, String unidades, String descuento){
@@ -193,7 +206,11 @@ public class PanelVentas extends JPanel {
 
     public void setearListaVenta(String productos, String unidades, String descuento){
         int precioUnidad = new StockDAO().getPriceByName(productos);
-        Object[] fila = {productos, precioUnidad, unidades, descuento};
+        int uni = Integer.parseInt(unidades);
+        double total = uni*precioUnidad;
+        double desc = Integer.parseInt(descuento);
+        double descuentoTotalUnidades = total - total*(desc/100);
+        Object[] fila = {productos, precioUnidad, unidades, total, descuento, descuentoTotalUnidades};
         DTM.addRow(fila);
     }
 }
