@@ -13,3 +13,4 @@ public class Main {
 //TODO: solucionar entrada de flotantes con coma o punto. (no funcionan con coma). Tampoco guardan los decimales correctamente.
 //TODO: bloquear el ingreso de numeros negativos donde corresponda
 // Agregar boton para calcular precio final con descuento final. Agregar boron de quitar elemento de listas
+//Si alcanza el tiempo, modularizar ventas

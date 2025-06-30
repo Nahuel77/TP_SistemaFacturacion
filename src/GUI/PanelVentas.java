@@ -24,12 +24,15 @@ public class PanelVentas extends JPanel {
     private JTextField DescuentoUniIn;
     private JLabel ProductNameLb;
     private JLabel DescuentoLb;
+    private JTextField DescIn;
     private JTextPane Total;
     private JLabel TotalLb;
     private JLabel ClienteLb;
     private JLabel EmpleadoLb;
     private DefaultComboBoxModel<String> modeloClienteCombo;
     private JComboBox ClienteBox;
+    private JTextPane TotalConDesc;
+    private JButton Quitar;
 
     public PanelVentas(Usuario user) {
         setLayout(new BorderLayout());
@@ -70,14 +73,14 @@ public class PanelVentas extends JPanel {
         panelInferior.add(UnidadesLb);
 
         JTextField UnidadesIn = new JTextField();
-        UnidadesIn.setPreferredSize(new Dimension(170, 40));
+        UnidadesIn.setPreferredSize(new Dimension(120, 40));
         panelInferior.add(UnidadesIn);
 
         DescuentoLb = new JLabel("Descuento: ");
         panelInferior.add(DescuentoLb);
 
         DescuentoUniIn = new JTextField();
-        DescuentoUniIn.setPreferredSize(new Dimension(170, 40));
+        DescuentoUniIn.setPreferredSize(new Dimension(120, 40));
         panelInferior.add(DescuentoUniIn);
 
         AgregarBtn = new JButton("Agregar");
@@ -85,6 +88,9 @@ public class PanelVentas extends JPanel {
 
         ProductosSeccion.add(panelInferior);
         add(ProductosSeccion, BorderLayout.WEST);
+
+        Quitar = new JButton("Quitar");
+        panelInferior.add(Quitar);
 
         // SECCIÓN DATOS CLIENTE, DESCUENTO Y TOTAL(DERECHA)
         JPanel DatosClienteSeccion = new JPanel();
@@ -120,14 +126,6 @@ public class PanelVentas extends JPanel {
         DescuentoPanel.setMaximumSize(new Dimension(300, 70));
         DescuentoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel DescLb = new JLabel("Descuento sobre total: ");
-        JTextField DescIn = new JTextField();
-        DescIn.setPreferredSize(new Dimension(170, 30));
-        DescuentoPanel.add(DescLb);
-        DescuentoPanel.add(DescIn);
-        DatosClienteSeccion.add(DescuentoPanel);
-        DatosClienteSeccion.add(Box.createVerticalStrut(10));
-
         // Total Panel
         JPanel TotalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         TotalPanel.setMaximumSize(new Dimension(300, 40));
@@ -145,7 +143,46 @@ public class PanelVentas extends JPanel {
         DatosClienteSeccion.add(TotalPanel);
         DatosClienteSeccion.add(Box.createVerticalStrut(10));
 
+        JLabel DescLb = new JLabel("Descuento sobre total: ");
+        DescIn = new JTextField();
+        DescIn.setPreferredSize(new Dimension(170, 30));
+        DescuentoPanel.add(DescLb);
+        DescuentoPanel.add(DescIn);
+        DatosClienteSeccion.add(DescuentoPanel);
+        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+
+        JButton AplicarDesc = new JButton("Aplicar");
+        AplicarDesc.setPreferredSize(new Dimension(60, 30));
+        DatosClienteSeccion.add(AplicarDesc);
+        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+
+        JPanel TotalConDescuentoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        TotalConDescuentoPanel.setMaximumSize(new Dimension(300, 40));
+        TotalConDescuentoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel TotalDescLb = new JLabel("Total con descuento aplicado: ");
+        TotalDescLb.setFont(new Font("Arial", Font.BOLD, 15));
+        TotalConDesc = new JTextPane();
+        TotalConDesc.setText("");
+        TotalConDesc.setPreferredSize(new Dimension(100, 30));
+        TotalConDesc.setEditable(false);
+
+        TotalConDescuentoPanel.add(TotalDescLb);
+        TotalConDescuentoPanel.add(TotalConDesc);
+        DatosClienteSeccion.add(TotalConDescuentoPanel);
+        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+
         add(DatosClienteSeccion, BorderLayout.EAST);
+
+        Quitar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int i = ventasTabla.getSelectedRow();
+                DTM.removeRow(i);
+                double total = calcularTotal();
+                Total.setText(String.valueOf(total));
+            }
+        });
 
         AgregarBtn.addActionListener(new ActionListener() {
             @Override
@@ -161,6 +198,17 @@ public class PanelVentas extends JPanel {
                     double total = calcularTotal();
                     Total.setText(String.valueOf(total));
                 }
+            }
+        });
+
+        AplicarDesc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double total = calcularTotal();
+                double desc = Integer.parseInt(DescIn.getText());
+                double TotalConDescCalculado = total - total*(desc/100);
+                //considerar funcion adicional para calcular total con descuento (para dirigir a la BD)
+                TotalConDesc.setText(String.valueOf(TotalConDescCalculado));
             }
         });
     }
@@ -187,6 +235,7 @@ public class PanelVentas extends JPanel {
             return false;
         }
 
+        //agregar posibilidad de dejar vacio el descuento y que se tome como 0
         try{
             int descInt = Integer.parseInt(descuento);
         }catch (NumberFormatException e){
