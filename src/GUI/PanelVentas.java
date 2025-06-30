@@ -12,254 +12,243 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PanelVentas extends JPanel {
-    private JLabel Title;
     private JTable ventasTabla;
     private DefaultTableModel DTM;
     private JComboBox ProductosBox;
     private JButton AgregarBtn;
-    private DefaultComboBoxModel<String> modeloCombo;
     private JTextField DescuentoUniIn;
-    private JLabel ProductNameLb;
-    private JLabel DescuentoLb;
     private JTextField DescIn;
     private JTextPane Total;
-    private JLabel TotalLb;
-    private JLabel ClienteLb;
-    private JLabel EmpleadoLb;
-    private DefaultComboBoxModel<String> modeloClienteCombo;
-    private JComboBox ClienteBox;
     private JTextPane TotalConDesc;
+    private JComboBox ClienteBox;
     private JButton Quitar;
 
     public PanelVentas(Usuario user) {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(20, 20));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Título
-        Title = new JLabel("Venta");
+        JLabel Title = new JLabel("Venta", SwingConstants.CENTER);
         Title.setFont(new Font("Arial", Font.BOLD, 24));
-        Title.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        Title.setHorizontalAlignment(SwingConstants.CENTER);
         add(Title, BorderLayout.NORTH);
 
-        // SECCIÓN PRODUCTOS (IZQUIERDA)
-        JPanel ProductosSeccion = new JPanel();
-        ProductosSeccion.setLayout(new BoxLayout(ProductosSeccion, BoxLayout.Y_AXIS));
+        // Panel de Productos
+        JPanel panelIzquierdo = new JPanel();
+        panelIzquierdo.setLayout(new BoxLayout(panelIzquierdo, BoxLayout.Y_AXIS));
 
         DTM = new DefaultTableModel(new Object[]{
                 "Nombre del Producto", "Precio", "Unidades", "Total", "Descuento por unidad", "Total con Descuento"
         }, 0);
         ventasTabla = new JTable(DTM);
         JScrollPane scroll = new JScrollPane(ventasTabla);
-        ProductosSeccion.add(scroll);
+        panelIzquierdo.add(scroll);
 
-        JPanel panelInferior = new JPanel();
-        ProductNameLb = new JLabel("Producto: ");
-        panelInferior.add(ProductNameLb);
-
-        modeloCombo = new DefaultComboBoxModel<>();
-        List<Modelo.Stock> stocks = new StockDAO().cargarStock();
-        modeloCombo.addElement("--");
-        for (Stock stk : stocks) {
-            modeloCombo.addElement(stk.getNombre());
-        }
-        ProductosBox = new JComboBox<>(modeloCombo);
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelInferior.add(new JLabel("Producto: "));
+        ProductosBox = new JComboBox();
+        ProductosBox.setPreferredSize(new Dimension(120, 30));
         panelInferior.add(ProductosBox);
 
-        JLabel UnidadesLb = new JLabel("Unidades: ");
-        panelInferior.add(UnidadesLb);
-
+        panelInferior.add(new JLabel("Unidades: "));
         JTextField UnidadesIn = new JTextField();
-        UnidadesIn.setPreferredSize(new Dimension(120, 40));
+        UnidadesIn.setPreferredSize(new Dimension(60, 30));
         panelInferior.add(UnidadesIn);
 
-        DescuentoLb = new JLabel("Descuento: ");
-        panelInferior.add(DescuentoLb);
-
+        panelInferior.add(new JLabel("Descuento: "));
         DescuentoUniIn = new JTextField();
-        DescuentoUniIn.setPreferredSize(new Dimension(120, 40));
+        DescuentoUniIn.setPreferredSize(new Dimension(60, 30));
         panelInferior.add(DescuentoUniIn);
 
         AgregarBtn = new JButton("Agregar");
         panelInferior.add(AgregarBtn);
 
-        ProductosSeccion.add(panelInferior);
-        add(ProductosSeccion, BorderLayout.WEST);
-
         Quitar = new JButton("Quitar");
         panelInferior.add(Quitar);
 
-        // SECCIÓN DATOS CLIENTE, DESCUENTO Y TOTAL(DERECHA)
-        JPanel DatosClienteSeccion = new JPanel();
-        DatosClienteSeccion.setLayout(new BoxLayout(DatosClienteSeccion, BoxLayout.Y_AXIS));
-        DatosClienteSeccion.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        panelIzquierdo.add(panelInferior);
+        add(panelIzquierdo, BorderLayout.CENTER);
 
-        // Empleado
-        EmpleadoLb = new JLabel("Empleado: " + user.getEmpleado());
+        // Panel derecho
+        JPanel panelDerecho = new JPanel();
+        panelDerecho.setLayout(new BoxLayout(panelDerecho, BoxLayout.Y_AXIS));
+        panelDerecho.setPreferredSize(new Dimension(350, 500));
+
+        JLabel EmpleadoLb = new JLabel("Empleado: " + user.getEmpleado());
         EmpleadoLb.setAlignmentX(Component.LEFT_ALIGNMENT);
-        DatosClienteSeccion.add(EmpleadoLb);
-        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+        panelDerecho.add(EmpleadoLb);
+        panelDerecho.add(Box.createVerticalStrut(10));
 
-        // Cliente Panel
-        JPanel ClientePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ClientePanel.setMaximumSize(new Dimension(300, 40));
-        ClientePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel clientePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        clientePanel.add(new JLabel("Cliente: "));
+        ClienteBox = new JComboBox();
+        ClienteBox.setPreferredSize(new Dimension(200, 25));
+        clientePanel.add(ClienteBox);
+        panelDerecho.add(clientePanel);
+        panelDerecho.add(Box.createVerticalStrut(10));
 
-        ClienteLb = new JLabel("Cliente: ");
-        modeloClienteCombo = new DefaultComboBoxModel<>();
-        List<Modelo.Cliente> clientes = new ClienteDAO().cargarClientes();
-        modeloClienteCombo.addElement("--");
-        for (Cliente cli : clientes) {
-            modeloClienteCombo.addElement(cli.getNombre());
-        }
-        ClienteBox = new JComboBox<>(modeloClienteCombo);
-        ClientePanel.add(ClienteLb);
-        ClientePanel.add(ClienteBox);
-        DatosClienteSeccion.add(ClientePanel);
-        DatosClienteSeccion.add(Box.createVerticalStrut(10));
-
-        // Descuento Panel
-        JPanel DescuentoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        DescuentoPanel.setMaximumSize(new Dimension(300, 70));
-        DescuentoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // Total Panel
-        JPanel TotalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        TotalPanel.setMaximumSize(new Dimension(300, 40));
-        TotalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        TotalLb = new JLabel("Total:");
-        TotalLb.setFont(new Font("Arial", Font.BOLD, 15));
+        JPanel totalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        totalPanel.add(new JLabel("Total:"));
         Total = new JTextPane();
-        Total.setText("");
         Total.setPreferredSize(new Dimension(100, 30));
         Total.setEditable(false);
+        totalPanel.add(Total);
+        panelDerecho.add(totalPanel);
 
-        TotalPanel.add(TotalLb);
-        TotalPanel.add(Total);
-        DatosClienteSeccion.add(TotalPanel);
-        DatosClienteSeccion.add(Box.createVerticalStrut(10));
-
-        JLabel DescLb = new JLabel("Descuento sobre total: ");
+        JPanel descuentoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        descuentoPanel.add(new JLabel("Descuento sobre total: "));
         DescIn = new JTextField();
-        DescIn.setPreferredSize(new Dimension(170, 30));
-        DescuentoPanel.add(DescLb);
-        DescuentoPanel.add(DescIn);
-        DatosClienteSeccion.add(DescuentoPanel);
-        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+        DescIn.setPreferredSize(new Dimension(100, 25));
+        descuentoPanel.add(DescIn);
+        panelDerecho.add(descuentoPanel);
 
         JButton AplicarDesc = new JButton("Aplicar");
-        AplicarDesc.setPreferredSize(new Dimension(60, 30));
-        DatosClienteSeccion.add(AplicarDesc);
-        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+        AplicarDesc.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panelDerecho.add(AplicarDesc);
+        panelDerecho.add(Box.createVerticalStrut(10));
 
-        JPanel TotalConDescuentoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        TotalConDescuentoPanel.setMaximumSize(new Dimension(300, 40));
-        TotalConDescuentoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JLabel TotalDescLb = new JLabel("Total con descuento aplicado: ");
-        TotalDescLb.setFont(new Font("Arial", Font.BOLD, 15));
+        JPanel totalConDescPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        totalConDescPanel.add(new JLabel("Total con descuento aplicado: "));
         TotalConDesc = new JTextPane();
-        TotalConDesc.setText("");
         TotalConDesc.setPreferredSize(new Dimension(100, 30));
         TotalConDesc.setEditable(false);
+        totalConDescPanel.add(TotalConDesc);
+        panelDerecho.add(totalConDescPanel);
 
-        TotalConDescuentoPanel.add(TotalDescLb);
-        TotalConDescuentoPanel.add(TotalConDesc);
-        DatosClienteSeccion.add(TotalConDescuentoPanel);
-        DatosClienteSeccion.add(Box.createVerticalStrut(10));
+        JPanel botonesFinales = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton TerminarVenta = new JButton("Terminar Venta");
+        JButton CancelarVenta = new JButton("Cancelar Venta");
+        botonesFinales.add(TerminarVenta);
+        botonesFinales.add(CancelarVenta);
+        panelDerecho.add(botonesFinales);
 
-        add(DatosClienteSeccion, BorderLayout.EAST);
+        add(panelDerecho, BorderLayout.EAST);
 
-        Quitar.addActionListener(new ActionListener() {
+        TerminarVenta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int i = ventasTabla.getSelectedRow();
+                List<ListaVenta> listaVentas = new ArrayList<>();
+                for (int i = 0; i < DTM.getRowCount(); i++) {
+                    String nombreProducto = DTM.getValueAt(i, 0).toString();
+                    float precioProducto = Float.parseFloat(DTM.getValueAt(i, 1).toString());
+                    int unidades = Integer.parseInt(DTM.getValueAt(i, 2).toString());
+                    double total = Double.parseDouble(DTM.getValueAt(i, 3).toString());
+                    int descuentoProductoUnidad = Integer.parseInt(DTM.getValueAt(i, 4).toString());
+                    double totalDescuentoUnidad = Double.parseDouble(DTM.getValueAt(i, 5).toString());
+
+                    ListaVenta venta = new ListaVenta(
+                            nombreProducto,
+                            precioProducto,
+                            unidades,
+                            total,
+                            descuentoProductoUnidad,
+                            totalDescuentoUnidad
+                    );
+                    listaVentas.add(venta);
+                }
+                String cliente = (String) ClienteBox.getSelectedItem();
+                Factura.mostrarFacturaEnVentana(listaVentas, Total.getText(), DescIn.getText(), TotalConDesc.getText(), user.getEmpleado(), cliente);
+            }
+        });
+
+        CancelarVenta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DefaultTableModel model = (DefaultTableModel) ventasTabla.getModel();
+                model.setRowCount(0);
+                UnidadesIn.setText("");
+                DescuentoUniIn.setText("");
+                ProductosBox.setSelectedIndex(0);
+                ClienteBox.setSelectedIndex(0);
+                Total.setText("");
+                TotalConDesc.setText("");
+                DescIn.setText("");
+            }
+        });
+
+        // Lógica de botones
+        Quitar.addActionListener(e -> {
+            int i = ventasTabla.getSelectedRow();
+            if (i >= 0) {
                 DTM.removeRow(i);
-                double total = calcularTotal();
-                Total.setText(String.valueOf(total));
+                Total.setText(String.valueOf(calcularTotal()));
             }
         });
 
-        AgregarBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String producto = (String) ProductosBox.getSelectedItem();
-                String unidades = UnidadesIn.getText();
-                String descuento = DescuentoUniIn.getText();
-                if(validarProductos(producto, unidades, descuento)){
-                    setearListaVenta(producto, unidades, descuento);
-                    UnidadesIn.setText("");
-                    DescuentoUniIn.setText("");
-                    ProductosBox.setSelectedIndex(0);
-                    double total = calcularTotal();
-                    Total.setText(String.valueOf(total));
-                }
+        AgregarBtn.addActionListener(e -> {
+            String producto = (String) ProductosBox.getSelectedItem();
+            String unidades = UnidadesIn.getText();
+            String descuento = DescuentoUniIn.getText();
+            if (validarProductos(producto, unidades, descuento)) {
+                setearListaVenta(producto, unidades, descuento);
+                UnidadesIn.setText("");
+                DescuentoUniIn.setText("");
+                ProductosBox.setSelectedIndex(0);
+                Total.setText(String.valueOf(calcularTotal()));
             }
         });
 
-        AplicarDesc.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                double total = calcularTotal();
-                double desc = Integer.parseInt(DescIn.getText());
-                double TotalConDescCalculado = total - total*(desc/100);
-                //considerar funcion adicional para calcular total con descuento (para dirigir a la BD)
-                TotalConDesc.setText(String.valueOf(TotalConDescCalculado));
+        AplicarDesc.addActionListener(e -> {
+            double total = calcularTotal();
+            try {
+                double desc = Double.parseDouble(DescIn.getText());
+                double totalConDesc = total - total * (desc / 100);
+                TotalConDesc.setText(String.valueOf(totalConDesc));
+            } catch (NumberFormatException ignored) {
             }
         });
+
+        // Cargar datos al inicio
+        cargarDatos();
     }
 
-    public double calcularTotal() {
-        double total = 0;
-        for (int i = 0; i < ventasTabla.getRowCount(); i++) {
-            Object valor = ventasTabla.getValueAt(i, 5);
-            if (valor != null) {
-                try {
-                    total += Double.parseDouble(valor.toString());
-                } catch (NumberFormatException e) {
-                    System.out.println("Error al sumar total");
-                }
-            }
-        }
-        return total;
+    private void cargarDatos() {
+        modeloComboBox(ProductosBox, new StockDAO().cargarStock());
+        modeloComboBox(ClienteBox, new ClienteDAO().cargarClientes());
     }
 
-    public boolean validarProductos(String producto, String unidades, String descuento){
-        //CONSIDERAR dAR ALCANCE GLOBAL A LA FUNCION NAN PARA TODAS LAS VALIDACIONES
-        if(producto == "--"){
-            System.out.println("es --");
+    private void modeloComboBox(JComboBox box, List<?> lista) {
+        box.removeAllItems();
+        box.addItem("--");
+        for (Object obj : lista) {
+            if (obj instanceof Stock)
+                box.addItem(((Stock) obj).getNombre());
+            else if (obj instanceof Cliente)
+                box.addItem(((Cliente) obj).getNombre());
+        }
+    }
+
+    private boolean validarProductos(String producto, String unidades, String descuento) {
+        if (producto.equals("--")) return false;
+        try {
+            Integer.parseInt(unidades);
+            Integer.parseInt(descuento);
+        } catch (NumberFormatException e) {
             return false;
         }
-
-        //agregar posibilidad de dejar vacio el descuento y que se tome como 0
-        try{
-            int descInt = Integer.parseInt(descuento);
-        }catch (NumberFormatException e){
-            System.out.println("desc no es num");
-            return false;
-        }
-
-        try{
-            int cantidad = Integer.parseInt(unidades);
-        }catch (NumberFormatException e){
-            System.out.println("cant no es num");
-            return false;
-        }
-
         return true;
     }
 
-    public void setearListaVenta(String productos, String unidades, String descuento){
-        int precioUnidad = new StockDAO().getPriceByName(productos);
+    private void setearListaVenta(String producto, String unidades, String descuento) {
+        int precio = new StockDAO().getPriceByName(producto);
         int uni = Integer.parseInt(unidades);
-        double total = uni*precioUnidad;
-        double desc = Integer.parseInt(descuento);
-        double descuentoTotalUnidades = total - total*(desc/100);
-        Object[] fila = {productos, precioUnidad, unidades, total, descuento, descuentoTotalUnidades};
-        DTM.addRow(fila);
+        int desc = Integer.parseInt(descuento);
+        double total = uni * precio;
+        double totalConDesc = total - total * (desc / 100.0);
+        DTM.addRow(new Object[]{producto, precio, unidades, total, desc, totalConDesc});
+    }
+
+    private double calcularTotal() {
+        double total = 0;
+        for (int i = 0; i < DTM.getRowCount(); i++) {
+            try {
+                total += Double.parseDouble(DTM.getValueAt(i, 5).toString());
+            } catch (Exception ignored) {
+            }
+        }
+        return total;
     }
 }
