@@ -6,6 +6,7 @@ import Modelo.Stock;
 import Modelo.Usuario;
 import Persistencia.ClienteDAO;
 import Persistencia.StockDAO;
+import Utilidades.Validador;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ public class PanelVentas extends JPanel {
     private JTextPane TotalConDesc;
     private JComboBox ClienteBox;
     private JButton Quitar;
+    private JTextField UnidadesIn;
 
     public PanelVentas(Usuario user) {
         setLayout(new BorderLayout(20, 20));
@@ -54,7 +56,7 @@ public class PanelVentas extends JPanel {
         panelInferior.add(ProductosBox);
 
         panelInferior.add(new JLabel("Unidades: "));
-        JTextField UnidadesIn = new JTextField();
+        UnidadesIn = new JTextField();
         UnidadesIn.setPreferredSize(new Dimension(60, 30));
         panelInferior.add(UnidadesIn);
 
@@ -130,6 +132,10 @@ public class PanelVentas extends JPanel {
         TerminarVenta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(ventasTabla.getRowCount()==0){
+                    JOptionPane.showMessageDialog(null, "No hay ventas en la lista.");
+                    return;
+                }
                 List<ListaVenta> listaVentas = new ArrayList<>();
                 for (int i = 0; i < DTM.getRowCount(); i++) {
                     String nombreProducto = DTM.getValueAt(i, 0).toString();
@@ -149,23 +155,25 @@ public class PanelVentas extends JPanel {
                     );
                     listaVentas.add(venta);
                 }
+                if(ClienteBox.getSelectedItem()=="--"){
+                    JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente.");
+                    return;
+                }
+                String totalDesc = TotalConDesc.getText();
+                if(Validador.isEmpty(totalDesc)){
+                    totalDesc = Total.getText();
+                }
+
                 String cliente = (String) ClienteBox.getSelectedItem();
-                Factura.mostrarFacturaEnVentana(listaVentas, Total.getText(), DescIn.getText(), TotalConDesc.getText(), user.getEmpleado(), cliente);
+                Factura.mostrarFacturaEnVentana(listaVentas, Total.getText(), DescIn.getText(), totalDesc, user.getEmpleado(), cliente);
+                limpiarDatos();
             }
         });
 
         CancelarVenta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultTableModel model = (DefaultTableModel) ventasTabla.getModel();
-                model.setRowCount(0);
-                UnidadesIn.setText("");
-                DescuentoUniIn.setText("");
-                ProductosBox.setSelectedIndex(0);
-                ClienteBox.setSelectedIndex(0);
-                Total.setText("");
-                TotalConDesc.setText("");
-                DescIn.setText("");
+                limpiarDatos();
             }
         });
 
@@ -182,6 +190,8 @@ public class PanelVentas extends JPanel {
             String producto = (String) ProductosBox.getSelectedItem();
             String unidades = UnidadesIn.getText();
             String descuento = DescuentoUniIn.getText();
+
+            if(Validador.isEmpty(descuento)){descuento=new String("0");}
             if (validarProductos(producto, unidades, descuento)) {
                 setearListaVenta(producto, unidades, descuento);
                 UnidadesIn.setText("");
@@ -194,6 +204,7 @@ public class PanelVentas extends JPanel {
         AplicarDesc.addActionListener(e -> {
             double total = calcularTotal();
             try {
+                //TODO comprobar si isEmpty
                 double desc = Double.parseDouble(DescIn.getText());
                 double totalConDesc = total - total * (desc / 100);
                 TotalConDesc.setText(String.valueOf(totalConDesc));
@@ -210,6 +221,18 @@ public class PanelVentas extends JPanel {
         modeloComboBox(ClienteBox, new ClienteDAO().cargarClientes());
     }
 
+    private void limpiarDatos(){
+        DefaultTableModel model = (DefaultTableModel) ventasTabla.getModel();
+        model.setRowCount(0);
+        UnidadesIn.setText("");
+        DescuentoUniIn.setText("");
+        ProductosBox.setSelectedIndex(0);
+        ClienteBox.setSelectedIndex(0);
+        Total.setText("");
+        TotalConDesc.setText("");
+        DescIn.setText("");
+    }
+
     private void modeloComboBox(JComboBox box, List<?> lista) {
         box.removeAllItems();
         box.addItem("--");
@@ -222,12 +245,10 @@ public class PanelVentas extends JPanel {
     }
 
     private boolean validarProductos(String producto, String unidades, String descuento) {
-        if (producto.equals("--")) return false;
-        try {
-            Integer.parseInt(unidades);
-            Integer.parseInt(descuento);
-        } catch (NumberFormatException e) {
-            return false;
+        if (producto.equals("--")){ return false;}
+        if(!Validador.isNaN(unidades)){ return false;}
+        if(!Validador.isEmpty(descuento)){
+            if(!Validador.isNaN(descuento)){return false;}
         }
         return true;
     }

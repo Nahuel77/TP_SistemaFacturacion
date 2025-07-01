@@ -3,13 +3,16 @@ package GUI;
 import Modelo.Stock;
 import Persistencia.ProveedorDAO;
 import Persistencia.StockDAO;
+import Utilidades.Validador;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PanelStock extends JPanel {
     private JTable stockTabla;
@@ -194,11 +197,27 @@ public class PanelStock extends JPanel {
     }
 
     private boolean validarCampos(){
-        JTextField[] campos = {NombreIn, ProveedorIn, PrecioIn, CantidadIn, EstadosIn };
-        for(JTextField campo : campos){
-            if(campo.getText().trim().length() == 0){
+        Map<JTextField, String> campos = new LinkedHashMap<>();
+        campos.put(NombreIn, "Nombre");
+        campos.put(ProveedorIn, "Proveedor");
+        campos.put(PrecioIn, "Precio");
+        campos.put(CantidadIn, "Cantidad");
+        campos.put(EstadosIn, "Estados");
+
+        for (Map.Entry<JTextField, String> entry : campos.entrySet()) {
+            if (entry.getKey().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo " + entry.getValue() + " es obligatorio.");
+                entry.getKey().requestFocus();
                 return false;
             }
+        }
+        if(!Validador.isNaN(PrecioIn.getText())){
+            JOptionPane.showMessageDialog(null, "El precio ingresado debe ser del tipo numerico.");
+            return false;
+        }
+        if(!Validador.isNaN(CantidadIn.getText())){
+            JOptionPane.showMessageDialog(null, "La cantidad ingresada no es numerica");
+            return false;
         }
         return true;
     }

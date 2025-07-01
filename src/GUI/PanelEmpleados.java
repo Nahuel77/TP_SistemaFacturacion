@@ -3,13 +3,16 @@ package GUI;
 import Modelo.Empleado;
 import Persistencia.ClienteDAO;
 import Persistencia.EmpleadoDAO;
+import Utilidades.Validador;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PanelEmpleados extends JPanel {
     private JTable empleadosTabla;
@@ -205,11 +208,34 @@ public class PanelEmpleados extends JPanel {
     }
 
     private boolean validarCampos(){
-        JTextField[] campos = {NombreIn, ApellidoIn, EmailIn, DireccionIn, TelefonoIn, DniIn, LegajoIn};
-        for(JTextField campo : campos){
-            if(campo.getText().trim().length() == 0){
+        Map<JTextField, String> campos = new LinkedHashMap<>();
+        campos.put(NombreIn, "Nombre");
+        campos.put(ApellidoIn, "Apellido");
+        campos.put(EmailIn, "Email");
+        campos.put(DireccionIn, "Dirección");
+        campos.put(TelefonoIn, "Teléfono");
+        campos.put(DniIn, "DNI");
+        campos.put(LegajoIn, "Legajo");
+
+        for (Map.Entry<JTextField, String> entry : campos.entrySet()) {
+            if (entry.getKey().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo " + entry.getValue() + " es obligatorio.");
+                entry.getKey().requestFocus();
                 return false;
             }
+        }
+
+        if(!Validador.isNaN(TelefonoIn.getText())){
+            JOptionPane.showMessageDialog(null, "El telefono ingresado debe ser del tipo numerico.");
+            return false;
+        }
+        if(!Validador.isNaN(DniIn.getText())){
+            JOptionPane.showMessageDialog(null, "El DNI ingresado debe ser del tipo numerico.");
+            return false;
+        }
+        if(!Validador.isNaN(LegajoIn.getText())){
+            JOptionPane.showMessageDialog(null, "El Legajo ingresado debe ser del tipo numerico.");
+            return false;
         }
         return true;
     }

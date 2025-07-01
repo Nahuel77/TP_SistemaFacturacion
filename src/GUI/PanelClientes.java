@@ -2,13 +2,16 @@ package GUI;
 
 import Modelo.Cliente;
 import Persistencia.ClienteDAO;
+import Utilidades.Validador;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class PanelClientes extends JPanel {
     private JTable clientesTabla;
@@ -208,12 +211,25 @@ public class PanelClientes extends JPanel {
     }
 
     private boolean validarCampos(){
-        JTextField[] campos = {NombreIn, ApellidoIn, EmailIn, DireccionIn, TelefonoIn, DniIn};
-        for(JTextField campo : campos){
-            if(campo.getText().trim().length() == 0){
+        Map<JTextField, String> campos = new LinkedHashMap<>();
+        campos.put(NombreIn, "Nombre");
+        campos.put(ApellidoIn, "Apellido");
+        campos.put(EmailIn, "Email");
+        campos.put(DireccionIn, "Dirección");
+        campos.put(TelefonoIn, "Teléfono");
+        campos.put(DniIn, "DNI");
+        for (Map.Entry<JTextField, String> entry : campos.entrySet()) {
+            if (entry.getKey().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo " + entry.getValue() + " es necesario");
                 return false;
             }
         }
+        if(!Validador.isNaN(TelefonoIn.getText())){
+            JOptionPane.showMessageDialog(null, "El telefono ingresado debe ser del tipo numerico.");
+            return false;}
+        if(!Validador.isNaN(DniIn.getText())){
+            JOptionPane.showMessageDialog(null, "El DNI ingresado debe ser del tipo numerico.");
+            return false;}
         return true;
     }
 }
